@@ -1,0 +1,15 @@
+This paper will walk you through the steps of installing Oracle Database 11g release 2 (Oracle version 11.2.0) in a Linux environment. About 90% of the material presented here applies to other platforms as well. Everything you read in this paper is hands on, roll-up-your-sleeves-and-get-busy material for Oracle users who want to get an Oracle database up and running quickly without reading hundreds of pages of documentation and “readme” files.
+
+These steps are meant to get you up and running as fast as possible, while leveraging best practices in order to set up a scalable, robust database environment that offers high performance. In order to keep the steps reasonably simple this paper does not cover Real Application Clusters (RAC), nor does it cover Oracle Internet Directory (OID), Automatic Storage Management (ASM), or Grid Control.
+
+In this paper we will install the 11.2.0.1 release of Oracle Database 11g. This is the base distribution of Oracle Database 11g release 2. Be sure to check Oracle Support’s Metalink at http://metalink.oracle.com to see if a newer patch set has been released since this paper was published. You will need a valid Customer Service Identifier (CSI) number in order to access the Metalink website.
+
+We ran our Oracle installations on servers equipped with Intel Xeon processors running Red Hat Enterprise Linux ES release 5 (Tikanga), update 4 (x86_64). Oracle Database 11g is supported on other processor architectures and Linux distributions as well. Note that with Red Hat Enterprise Linux, the ES and AS varieties are supported while WS is not.
+
+There are four phases to getting Oracle up and running on your server:
+
+Prepare the server
+Install the Oracle software and latest patch set
+Create a database
+Complete the server configuration
+We will walk through these phases one at a time, detailing all the steps involved. The end result will be a very usable database that can be scaled up quite large, and an Oracle installation that follows industry-recognized best practices. Of course, every implementation is unique, and you will need to evaluate each step carefully against your particular requirements. However, this paper will get you off to a very solid start.
