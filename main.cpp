@@ -4,10 +4,12 @@
 #include <algorithm>
 #include <iomanip>
 #include <fstream>
+#include "SimilarityMatrix.h"
 using namespace std;
 
 
 void printList(Hashmap* hash,ofstream &out,FileNameManager &fnMgr);
+void printSimilarity(Hashmap* hash,ofstream &out,FileNameManager &fnMgr,int threshold);
 
 string readFile(char* addr)
 {
@@ -25,10 +27,23 @@ string readFile(char* addr)
 
 }
 
-vector<string> tokenizer(string text){
-	cout<<text<<endl;
-	vector<string> funck;
-	return funck;
+vector<string> tokenizer(string txt){
+	vector<string> result;
+	string tmpStr = "";
+	for(int i = 0;i<txt.size();i++)
+	{
+		if(('a'<=txt.at(i) && txt.at(i)<='z') || ('A'<=txt.at(i) && txt.at(i)<='Z') || txt.at(i)=='\'')
+		{
+			tmpStr += txt.at(i);
+		}
+		else if(tmpStr!="")
+		{
+			result.push_back(tmpStr);
+			tmpStr = "";
+		}
+	}
+	result.push_back(tmpStr);
+	return result;
 }
 
 void findMultiple(vector<string> termList,Hashmap* hash,FileNameManager &fnMgr){
@@ -129,7 +144,7 @@ int main(int argc, char* argv[])
 	ofstream out;
 	out.open("result.xml",ios::out);
 
-	cout<<"The number of douments are: "<<argc-1<<"\n"<<endl;
+	cout<<"The number of documents are: "<<argc-1<<"\n"<<endl;
 	for(int i=1;i<argc;i++)
 	{
 		cout<<argv[i]<<"\n"<<endl;
@@ -138,21 +153,44 @@ int main(int argc, char* argv[])
 	}
 	hash->postProcessTfIdf(argc-1);
 
-	printList(hash,out,fNameMgr);
-	cout<<"\nOutput saved in result.txt\n"<<endl;
+	printSimilarity(hash,out,fNameMgr,10);
+
+//	printList(hash,out,fNameMgr);
+//	cout<<"\nOutput saved in result.txt\n"<<endl;
 	out.close();
-	string input="";
-	while(true){
-		cout<<"please insert the token to be searched: ";
-		cin>>input;
-		tokenizer(input);
-		find(input,hash,fNameMgr);
-	}
+//	string input="";
+//	while(true){
+//		cout<<"please insert the token to be searched: ";
+//		std::getline(cin,input);
+//		//cin.get(input);
+//		vector<string> list = tokenizer(input);
+//		if(list.size() <= 1){
+//			find(list[0],hash,fNameMgr);
+//		}
+//		else{
+//			findMultiple(list,hash,fNameMgr);
+//		}
+//
+//	}
 
 
-	//findMultiple(vecy,hash,fNameMgr);
 
 	return 0;
+}
+
+void printSimilarity(Hashmap* hash,ofstream &out,FileNameManager &fnMgr,int threshold){
+	SimilarityMatrix similMat(fnMgr.getFileCount(),threshold);
+	similMat.processTermList(hash);
+	cout<<endl<<"The similarity between files with "<<threshold<<" threshold:"<<endl;
+	vector<int>* resulist;
+	for(int i=0;i<fnMgr.getFileCount();i++){
+		cout<<fnMgr.getFileName(i)<<" is similar with: "<<endl;
+		resulist = similMat.getSimilarity(i);
+		for(int j=0;j<resulist->size();j++){
+			cout<< fnMgr.getFileName(resulist->at(j))<<", ";
+		}
+		cout<<endl;
+	}
 }
 
 void printList(Hashmap* hash,ofstream &out,FileNameManager &fnMgr)

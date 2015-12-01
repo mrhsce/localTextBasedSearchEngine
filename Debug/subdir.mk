@@ -8,7 +8,6 @@ CPP_SRCS += \
 ../FileNameManager.cpp \
 ../HashMap.cpp \
 ../Occurance.cpp \
-../SimilarityMatrix.cpp \
 ../main.cpp 
 
 OBJS += \
@@ -16,7 +15,6 @@ OBJS += \
 ./FileNameManager.o \
 ./HashMap.o \
 ./Occurance.o \
-./SimilarityMatrix.o \
 ./main.o 
 
 CPP_DEPS += \
@@ -24,7 +22,6 @@ CPP_DEPS += \
 ./FileNameManager.d \
 ./HashMap.d \
 ./Occurance.d \
-./SimilarityMatrix.d \
 ./main.d 
 
 

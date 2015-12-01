@@ -1,5 +1,5 @@
 main.d: ../main.cpp ../DocumentAnalyzer.h ../HashMap.h ../Document.h \
- ../Occurance.h ../Term.h ../FileNameManager.h
+ ../Occurance.h ../Term.h ../FileNameManager.h ../SimilarityMatrix.h
 
 ../DocumentAnalyzer.h:
 
@@ -12,3 +12,5 @@ main.d: ../main.cpp ../DocumentAnalyzer.h ../HashMap.h ../Document.h \
 ../Term.h:
 
 ../FileNameManager.h:
+
+../SimilarityMatrix.h:

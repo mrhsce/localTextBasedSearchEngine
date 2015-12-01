@@ -19,6 +19,8 @@ public:
 	int addFileName(string name);
 	int getFileId(string name);
 	string getFileName(int id);
+
+	int getFileCount(){return mainList.size();}
 private:
 	vector<string> mainList;
 
